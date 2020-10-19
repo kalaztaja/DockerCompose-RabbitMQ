@@ -1,5 +1,5 @@
 ### DevOps autumn 2020 – Assignment 5
-#### By Johannes Martikkala – 253026
+#### By Johannes Martikkala
 
 In this assignment we formed simple docker-compose of four different containers and rabbitmq in between those. We had original container which delivered the initial messages, intermediate container which took the messages and after a second pushed them back to rabbitmq, observer which received all the messages and lastly httpserver which read the file observer wrote. In between all of those we had rabbitmq which was the main topic of this assignment.
 
