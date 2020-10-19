@@ -1,0 +1,51 @@
+version: "3"
+
+services:
+  rabbitmq:
+    image: "rabbitmq:3.8.9"
+    container_name: rabbitmq
+    networks:
+      - rmqnetwork
+
+  orig:
+    build:
+      context: ./Original
+    container_name: original_container
+    networks:
+      - rmqnetwork
+    restart: always
+
+  imed:
+    build:
+      context: ./Intermediate
+    container_name: intermediate_container
+    networks:
+      - rmqnetwork
+    restart: always
+
+  obse:
+    build:
+      context: ./Observer
+    container_name: observer_container
+    networks:
+      - rmqnetwork
+    restart: always
+    volumes:
+      - httpdb:/data
+
+  httpserv:
+    build:
+      context: ./HTTPSERV
+    container_name: httpserver_container
+    networks:
+      - rmqnetwork
+    volumes:
+      - httpdb:/data
+    ports:
+      - "8080:80"
+
+networks:
+  rmqnetwork:
+
+volumes:
+  httpdb:
